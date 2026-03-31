@@ -24,8 +24,19 @@ from ..config import TeleoperatorConfig
 @dataclass
 class KeyboardTeleopConfig(TeleoperatorConfig):
     """KeyboardTeleopConfig"""
-
-    # TODO(Steven): Consider setting in here the keys that we want to capture/listen
+    
+    # 要监听的按键列表
+    keys: list[str] = None  # 或者设置默认值
+    
+    def __post_init__(self):
+        if self.keys is None:
+            # 默认按键（与 LeKiwiClientConfig.teleop_keys 对应）
+            self.keys = [
+                "w", "s", "z", "x", "a", "d",  # movement
+                "r", "f",                        # speed
+                "u", "j",                        # lift
+                "q",                             # quit
+            ]
 
 
 @TeleoperatorConfig.register_subclass("keyboard_ee")

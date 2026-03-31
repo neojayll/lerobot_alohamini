@@ -91,6 +91,7 @@ def log_rerun_data(
                         rr.log(f"{key}_{i}", rr.Scalars(float(vi)))
                 else:
                     img_entity = rr.Image(arr).compress() if compress_images else rr.Image(arr)
+                    # static=False 实时录制未压缩
                     rr.log(key, entity=img_entity, static=True)
 
     if action:
