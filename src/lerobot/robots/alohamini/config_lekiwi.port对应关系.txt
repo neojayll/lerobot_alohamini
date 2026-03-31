@@ -1,0 +1,8 @@
+/dev/ttyACM1 右臂 am_arm_follower_right
+/dev/ttyACM0 左臂 am_arm_follower_left
+
+/dev/video4 头顶 head_top
+/dev/video2 后面 head_back
+/dev/video6 前面 head_front
+/dev/video0 左臂 wrist_left
+/dev/video8 右臂 wrist_right
