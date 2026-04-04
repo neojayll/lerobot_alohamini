@@ -36,12 +36,15 @@ def init_rerun(
     """
     batch_size = os.getenv("RERUN_FLUSH_NUM_BYTES", "8000")
     os.environ["RERUN_FLUSH_NUM_BYTES"] = batch_size
-    rr.init(session_name)
     memory_limit = os.getenv("LEROBOT_RERUN_MEMORY_LIMIT", "10%")
+    rr.init(session_name)
     if ip and port:
         rr.connect_grpc(url=f"rerun+http://{ip}:{port}/proxy")
     else:
-        rr.spawn(memory_limit=memory_limit)
+        # 使用 web viewer 模式,兼容 WSL2
+        server_uri = rr.serve_grpc()
+        rr.serve_web_viewer(connect_to=server_uri, open_browser=True)
+        print(f"Rerun Web Viewer 已启动,请在浏览器中访问: http://localhost:9876")
 
 
 def _is_scalar(x):
